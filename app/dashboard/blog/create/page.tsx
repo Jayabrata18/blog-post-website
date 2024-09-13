@@ -17,19 +17,35 @@ import Image from "next/image";
 import { Textarea } from "@/components/ui/textarea";
 import MarkdownPreview from "@/components/markdown/MarkdownPreview";
 
-const FormSchema = z.object({
-    title: z.string().min(2, {
-        message: "Title must be at least 2 characters."
-    }),
-    image_url: z.string().url({
-        message: "Invalid URL"
-    }),
-    content: z.string().min(10, {
-        message: "Content must be at least 10 characters."
-    }),
-    isPremium: z.boolean(),
-    isPublished: z.boolean()
-});
+const FormSchema = z
+    .object({
+        title: z.string().min(2, {
+            message: "Title must be at least 2 characters."
+        }),
+        image_url: z.string().url({
+            message: "Invalid URL"
+        }),
+        content: z.string().min(10, {
+            message: "Content must be at least 10 characters."
+        }),
+        isPremium: z.boolean(),
+        isPublished: z.boolean()
+    })
+    .refine(
+        (data) => {
+            const image_url = data.image_url;
+            try {
+                const url = new URL(image_url);
+                return url.hostname === "image.unsplash.com";
+            } catch {
+                return false;
+            }
+        },
+        {
+            message: "Invalid image URL. Please use an image from Unsplash.",
+            path: ["image_url"]
+        }
+    );
 
 export default function BlogForm() {
     const [isPreview, setPreview] = useState(false);
@@ -58,14 +74,17 @@ export default function BlogForm() {
 
     return (
         <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="w-full border rounded-md space-y-6 ">
+            <form onSubmit={form.handleSubmit(onSubmit)} className="w-full border rounded-md space-y-6 pb-10">
                 <div className="p-5 flex items-center flex-wrap justify-between border-b gap-5">
                     <div className="flex gap-5 items-center flex-wrap">
                         <span
                             role="button"
                             tabIndex={0}
                             className="flex items-center gap-1 border bg-zinc-700 p-2 rounded-md hover:ring-2 hover:ring-zinc-400 transition-all"
-                            onClick={() => setPreview(!isPreview)}
+                            onClick={() => setPreview(!isPreview 
+                                // && 
+                                // !form.getFieldState("image_url").invalid
+                            )}
                         >
                             {isPreview ? (
                                 <>
@@ -195,7 +214,7 @@ export default function BlogForm() {
                                             isPreview ? "w-0 p-0" : "w-full lg:w-1/2"
                                         )}
                                     />
-                                    <div className={cn("lg:px-10", isPreview ? "mx-auto w-full lg:w-4/5" : "w-1/2 lg:block hidden")}>
+                                    <div className={cn("overflow-y-auto", isPreview ? "mx-auto w-full lg:w-4/5" : "w-1/2 lg:block hidden")}>
                                         <MarkdownPreview content={form.getValues().content} />
                                     </div>
                                 </div>
