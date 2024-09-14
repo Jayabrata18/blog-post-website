@@ -9,7 +9,19 @@ const nextConfig = {
 
             },
             {
+                hostname: 'drive.google.com',
+                protocol: 'https'
+            },
+            {
                 hostname: 'images.unsplash.com',
+                protocol: 'https'
+            },
+            {
+                hostname: '192.168.1.3',
+                protocol: 'http'
+            },
+            {
+                hostname: 'raw.githubusercontent.com', 
                 protocol: 'https'
             }
         ]

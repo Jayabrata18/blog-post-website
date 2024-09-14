@@ -19,13 +19,14 @@ export const BlogFormSchema = z
             const image_url = data.image_url;
             try {
                 const url = new URL(image_url);
-                return url.hostname === "image.unsplash.com";
+                "raw.githubusercontent.com" && url.pathname.includes("/assets/");
             } catch {
                 return false;
             }
         },
+
         {
-            message: "Invalid image URL. Please use an image from Unsplash.",
+            message: "Invalid image URL. Please use an image from google drive.",
             path: ["image_url"]
         }
     );
