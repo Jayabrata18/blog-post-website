@@ -49,7 +49,7 @@ export default function MarkdownPreview({ content, className = "sm:p-10" }: { co
                                 </div>
                                 <div className="overflow-x-auto w-full">
                                     <div className="p-5" id={id}>
-                                        <pre className={className} {...props}>
+                                        <pre className={className as string} {...(props as React.HTMLAttributes<HTMLPreElement>)}>
                                             {children}
                                         </pre>
                                     </div>
