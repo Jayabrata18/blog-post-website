@@ -35,13 +35,11 @@ export default function MarkdownPreview({ content, className = "sm:p-10" }: { co
                         }
 
                         return (
-                            <div className=" bg-graident-dark text-gray-300 border-[0.5px] rounded-md border-zinc-500">
+                            <div className=" bg-gradient-dark text-gray-200 border-[0.5px] rounded-md border-zinc-300">
                                 <div className="flex items-center justify-between px-5 py-2 border-b-[0.5px] border-zinc-500">
                                     <div className="flex items-center gap-2">
                                         <Icon />
-                                        <p className="text-sm text-gray-400">
-                                            {node?.data?.meta}
-                                        </p>
+                                        <p className="text-sm text-gray-400">{node?.data?.meta}</p>
                                     </div>
                                     <CopyButton id={id} />
                                 </div>
