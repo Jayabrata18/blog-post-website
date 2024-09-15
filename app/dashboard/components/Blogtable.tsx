@@ -5,19 +5,13 @@ import { Switch } from "@/components/ui/switch";
 import DeleteAlert from "./DeleteAlert";
 import { getBlogs } from "@/lib/actions/blogApi";
 import Link from "next/link";
+import { IBlog } from "@/lib/types";
 // import SwitchForm from "./SwitchForm";
 
-interface Blog {
-    _id: string;
-    title: string;
-    content: string;
-    image_url: string;
-    createdAt: string;
-    updatedAt: string;
-}
 const Blogtable = async () => {
     const response = await getBlogs();
-    const blogs = response?.data || [];
+    console.log("response:", response?.data);
+
     return (
         <div className="overflow-x-auto">
             <div className="border bg bg-gradient-dark rounded-md w-[900px] md:w-full">
@@ -26,7 +20,7 @@ const Blogtable = async () => {
                     <h1>Premium</h1>
                     <h1>Publish</h1>
                 </div>
-                {blogs?.map((blog: Blog, id: number) => {
+                {response?.data?.blogs?.map((blog: IBlog, id: number) => {
                     return (
                         <div className="grid grid-cols-5 p-5" key={id}>
                             <h1 className="col-span-2">{blog.title}</h1>

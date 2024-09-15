@@ -12,3 +12,18 @@ export type IBlogDetial = {
     // };
     content: string;
 } | null;
+
+export type IBlog = {
+    _id: string;
+    title: string;
+    content: string;
+    image_url: string;
+    createdAt: string;
+    updatedAt: string;
+};
+
+export type IResponse = {
+    data: {
+        blogs: IBlog[];
+    };
+}
