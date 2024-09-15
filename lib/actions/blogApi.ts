@@ -153,3 +153,34 @@ export async function updateBlogById(blogId: string, updatedData: BlogFormSchema
         };
     }
 }
+export async function getBlogById(blogId: string) {
+    try {
+        const response = await fetch(`http://localhost:5555/api/v1/get-blog/${blogId}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error(`Failed to fetch the blog: ${response.statusText}`);
+        }
+
+        const blog = await response.json();
+        console.log("Blog fetched successfully:", blog);
+        return {
+            success: true,
+            data: blog,
+        };
+    } catch (error: unknown) {
+        if (error instanceof Error) {
+            console.error("Error fetching blog:", error.message);
+        } else {
+            console.error("Unknown error occurred while fetching the blog");
+        }
+        return {
+            success: false,
+            message: error instanceof Error ? error.message : "Unknown error occurred",
+        };
+    }
+}

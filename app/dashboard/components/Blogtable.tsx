@@ -4,6 +4,7 @@ import React from "react";
 import { Switch } from "@/components/ui/switch";
 import DeleteAlert from "./DeleteAlert";
 import { getBlogs } from "@/lib/actions/blogApi";
+import Link from "next/link";
 // import SwitchForm from "./SwitchForm";
 
 interface Blog {
@@ -49,10 +50,12 @@ const Actions = ({ id }: { id: string }) => {
                 View
             </Button>
             <DeleteAlert blogId={id} />
-            <Button variant="outline" className="flex items-center gap-2">
-                <Pencil1Icon />
-                edit
-            </Button>{" "}
+            <Link href={"/dashboard/blog/edit/" + id}>
+                <Button variant="outline" className="flex items-center gap-2">
+                    <Pencil1Icon />
+                    edit
+                </Button>
+            </Link>
         </div>
     );
 };

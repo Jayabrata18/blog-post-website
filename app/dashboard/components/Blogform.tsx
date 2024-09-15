@@ -15,17 +15,18 @@ import Image from "next/image";
 import { Textarea } from "@/components/ui/textarea";
 import MarkdownPreview from "@/components/markdown/MarkdownPreview";
 import { BlogFormSchema, BlogFormSchemaType } from "../schema";
+import { IBlogDetial } from "@/lib/types";
 
-export default function BlogForm({ onHandleSubmit }: { onHandleSubmit: (data: BlogFormSchemaType) => void }) {
+export default function BlogForm({ onHandleSubmit, blog }: { onHandleSubmit: (data: BlogFormSchemaType) => void; blog?: IBlogDetial }) {
     const [isPending, startTransition] = useTransition();
     const [isPreview, setPreview] = useState(false);
     const form = useForm<BlogFormSchemaType>({
         mode: "all",
         resolver: zodResolver(BlogFormSchema),
         defaultValues: {
-            title: "",
-            content: "",
-            image_url: ""
+            title: blog?.title || "",
+            content: blog?.content || "",
+            image_url: blog?.image_url || ""
             // isPremium: false,
             // isPublished: false
         }
@@ -92,7 +93,7 @@ export default function BlogForm({ onHandleSubmit }: { onHandleSubmit: (data: Bl
                                         </div>
                                     </FormControl>
                                 </FormItem> */}
-                            {/* )}
+                        {/* )}
                         /> */}
                     </div>
 
