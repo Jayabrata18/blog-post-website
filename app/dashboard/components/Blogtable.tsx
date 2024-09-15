@@ -10,11 +10,11 @@ import { IBlog } from "@/lib/types";
 
 const Blogtable = async () => {
     const response = await getBlogs();
-    console.log("response:", response?.data);
+    // console.log("response:", response?.data);
 
     return (
         <div className="overflow-x-auto">
-            <div className="border bg bg-gradient-dark rounded-md w-[900px] md:w-full">
+            <div className="border bg bg-gradient-dark rounded-md sm:w-[900px] md:w-full">
                 <div className="grid grid-cols-5 p-5 text-gray-500 border-b">
                     <h1 className="col-span-2">Title</h1>
                     <h1>Premium</h1>
@@ -38,7 +38,7 @@ const Blogtable = async () => {
 
 const Actions = ({ id }: { id: string }) => {
     return (
-        <div className="flex items-center gap-5 flex-wrap">
+        <div className="flex items-center gap-5 flex-wrap md:flex-row">
             <Button variant="outline" className="flex items-center gap-2">
                 <EyeOpenIcon />
                 View

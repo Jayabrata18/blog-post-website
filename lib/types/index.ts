@@ -20,7 +20,7 @@ export type IBlog = {
     image_url: string;
     createdAt: string;
     updatedAt: string;
-};
+} ;
 
 export type IResponse = {
     data: {
