@@ -4,6 +4,7 @@ import React from "react";
 import { Switch } from "@/components/ui/switch";
 import DeleteAlert from "./DeleteAlert";
 import { getBlogs } from "@/lib/actions/blogApi";
+// import SwitchForm from "./SwitchForm";
 
 interface Blog {
     _id: string;
@@ -28,6 +29,7 @@ const Blogtable = async () => {
                     return (
                         <div className="grid grid-cols-5 p-5" key={id}>
                             <h1 className="col-span-2">{blog.title}</h1>
+                            {/* <SwitchForm checked={blog.is_published} name = "published" /> */}
                             <Switch checked={false} />
                             <Switch checked={true} />
                             <Actions id={blog._id} />

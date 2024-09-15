@@ -118,3 +118,38 @@ export async function deleteBlogById(blogId: string) {
         };
     }
 }
+
+
+export async function updateBlogById(blogId: string, updatedData: BlogFormSchemaType) {
+    try {
+        const response = await fetch(`http://localhost:5555/api/v1/update-blog/${blogId}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(updatedData)
+        });
+
+        if (!response.ok) {
+            throw new Error(`Failed to update the blog: ${response.statusText}`);
+        }
+
+        const result = await response.json();
+        console.log("Blog updated successfully:", result);
+        return {
+            success: true,
+            message: "Blog updated successfully",
+            data: result,
+        };
+    } catch (error: unknown) {
+        if (error instanceof Error) {
+            console.error("Error updating blog:", error.message);
+        } else {
+            console.error("Unknown error occurred while updating the blog");
+        }
+        return {
+            success: false,
+            message: error instanceof Error ? error.message : "Unknown error occurred",
+        };
+    }
+}
