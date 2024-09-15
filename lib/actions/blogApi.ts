@@ -81,9 +81,9 @@ export async function updateBlogById(blogId: string, updatedData: BlogFormSchema
         return { success: false, message: error.message || "Unknown error" };
     }
 }
-export async function getBlogById(blogId: string) {
+export async function getBlogById(id: string) {
     try {
-        const response = await fetch(`http://localhost:5555/api/v1/get-blog/${blogId}`, {
+        const response = await fetch(`http://localhost:5555/api/v1/get-blog/${id}`, {
             method: "GET",
             headers: { "Content-Type": "application/json" }
         });
