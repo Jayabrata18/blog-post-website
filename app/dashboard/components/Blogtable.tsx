@@ -1,9 +1,21 @@
 import { Button } from "@/components/ui/button";
-import { EyeOpenIcon, Pencil1Icon, TrashIcon } from "@radix-ui/react-icons";
+import { EyeOpenIcon, Pencil1Icon } from "@radix-ui/react-icons";
 import React from "react";
 import { Switch } from "@/components/ui/switch";
+import DeleteAlert from "./DeleteAlert";
+import { getBlogs } from "@/lib/actions/blogApi";
 
-const Blogtable = () => {
+interface Blog {
+    _id: string;
+    title: string;
+    content: string;
+    image_url: string;
+    createdAt: string;
+    updatedAt: string;
+}
+const Blogtable = async () => {
+    const response = await getBlogs();
+    const blogs = response?.data || [];
     return (
         <div className="overflow-x-auto">
             <div className="border bg bg-gradient-dark rounded-md w-[900px] md:w-full">
@@ -12,28 +24,29 @@ const Blogtable = () => {
                     <h1>Premium</h1>
                     <h1>Publish</h1>
                 </div>
-                <div className="grid grid-cols-5 p-5">
-                    <h1 className="col-span-2">Blog Title</h1>
-                    <Switch checked={false} />
-                    <Switch checked={true} />
-                    <Actions />
-                </div>
+                {blogs?.map((blog: Blog, id: number) => {
+                    return (
+                        <div className="grid grid-cols-5 p-5" key={id}>
+                            <h1 className="col-span-2">{blog.title}</h1>
+                            <Switch checked={false} />
+                            <Switch checked={true} />
+                            <Actions id={blog._id} />
+                        </div>
+                    );
+                })}
             </div>
         </div>
     );
 };
 
-const Actions = () => {
+const Actions = ({ id }: { id: string }) => {
     return (
         <div className="flex items-center gap-5 flex-wrap">
             <Button variant="outline" className="flex items-center gap-2">
                 <EyeOpenIcon />
                 View
             </Button>
-            <Button variant="outline" className="flex items-center gap-2">
-                <TrashIcon />
-                Delete
-            </Button>
+            <DeleteAlert blogId={id} />
             <Button variant="outline" className="flex items-center gap-2">
                 <Pencil1Icon />
                 edit

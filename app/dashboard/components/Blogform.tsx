@@ -6,10 +6,10 @@ import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { EyeOpenIcon, Pencil1Icon } from "@radix-ui/react-icons";
-import { Switch } from "@/components/ui/switch";
-import { RocketIcon, StarIcon } from "lucide-react";
+// import { Switch } from "@/components/ui/switch";
+// import { RocketIcon, StarIcon } from "lucide-react";
 import { BsSave } from "react-icons/bs";
-import { useState } from "react";
+import { useState, useTransition } from "react";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import { Textarea } from "@/components/ui/textarea";
@@ -17,6 +17,7 @@ import MarkdownPreview from "@/components/markdown/MarkdownPreview";
 import { BlogFormSchema, BlogFormSchemaType } from "../schema";
 
 export default function BlogForm({ onHandleSubmit }: { onHandleSubmit: (data: BlogFormSchemaType) => void }) {
+    const [isPending, startTransition] = useTransition();
     const [isPreview, setPreview] = useState(false);
     const form = useForm<BlogFormSchemaType>({
         mode: "all",
@@ -24,15 +25,14 @@ export default function BlogForm({ onHandleSubmit }: { onHandleSubmit: (data: Bl
         defaultValues: {
             title: "",
             content: "",
-            image_url: "",
-            isPremium: false,
-            isPublished: false
+            image_url: ""
+            // isPremium: false,
+            // isPublished: false
         }
     });
 
     function onSubmit(data: BlogFormSchemaType) {
-        onHandleSubmit(data);
-       
+        startTransition(() => onHandleSubmit(data));
     }
 
     return (
@@ -64,7 +64,7 @@ export default function BlogForm({ onHandleSubmit }: { onHandleSubmit: (data: Bl
                                 </>
                             )}
                         </span>
-                        <FormField
+                        {/* <FormField
                             control={form.control}
                             name="isPremium"
                             render={({ field }) => (
@@ -91,12 +91,12 @@ export default function BlogForm({ onHandleSubmit }: { onHandleSubmit: (data: Bl
                                             <Switch checked={field.value} onCheckedChange={field.onChange} />
                                         </div>
                                     </FormControl>
-                                </FormItem>
-                            )}
-                        />
+                                </FormItem> */}
+                            {/* )}
+                        /> */}
                     </div>
 
-                    <Button className="flex items-center gap-1" disabled={!form.formState.isValid}>
+                    <Button className={cn("flex items-center gap-1", { "animate-spin": isPending })} disabled={!form.formState.isValid}>
                         <BsSave />
                         Save
                     </Button>

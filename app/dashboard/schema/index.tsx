@@ -11,24 +11,24 @@ export const BlogFormSchema = z
         content: z.string().min(10, {
             message: "Content must be at least 10 characters."
         }),
-        isPremium: z.boolean(),
-        isPublished: z.boolean()
+        // isPremium: z.boolean(),
+        // isPublished: z.boolean()
     })
-    .refine(
-        (data) => {
-            const image_url = data.image_url;
-            try {
-                const url = new URL(image_url);
-                "raw.githubusercontent.com" && url.pathname.includes("/assets/");
-            } catch {
-                return false;
-            }
-        },
+    // .refine(
+    //     (data) => {
+    //         const image_url = data.image_url;
+    //         try {
+    //             const url = new URL(image_url);
+    //             "raw.githubusercontent.com" && url.pathname.includes("/assets/");
+    //         } catch {
+    //             return false;
+    //         }
+    //     },
 
-        {
-            message: "Invalid image URL. Please use an image from google drive.",
-            path: ["image_url"]
-        }
-    );
+    //     {
+    //         message: "Invalid image URL. Please use an image from google drive.",
+    //         path: ["image_url"]
+    //     }
+    // );
 
 export type BlogFormSchemaType = z.infer<typeof BlogFormSchema>;
