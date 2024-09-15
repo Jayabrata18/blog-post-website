@@ -1,22 +1,13 @@
 import { getBlogById } from "@/lib/actions/blogApi";
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import MarkdownPreview from "@/components/markdown/MarkdownPreview";
-import { BlogContentLoading } from "./components/blogLoadin";
 
 const page = async ({ params }: { params: { id: string } }) => {
-    const [loading, setLoading] = useState(true);
 
     const { data: blog } = await getBlogById(params.id);
     if (!blog?._id) {
         return <h1 className="text-white">Not found</h1>;
-    }
-    useEffect(() => {
-        setLoading(false);
-    }, []);
-
-    if (loading) {
-        return <BlogContentLoading />;
     }
     return (
         <div className="max-w-5xl mx-auto min-h-screen  pt-10 space-y-10">
