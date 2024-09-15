@@ -79,7 +79,6 @@ export async function getBlogs() {
         }
     }
 }
-
 export async function deleteBlogById(blogId: string) {
     try {
         const response = await fetch(`http://localhost:5555/api/v1/delete-blog/${blogId}`, {
@@ -93,12 +92,19 @@ export async function deleteBlogById(blogId: string) {
             throw new Error(`Failed to delete the blog: ${response.statusText}`);
         }
 
-        const result = await response.json();
-        console.log("Blog deleted successfully:", result);
+        let responseData;
+        try {
+            responseData = await response.json();
+            console.log("Responce Data:", responseData);
+        } catch (jsonError) {
+            throw new Error('Unexpected end of JSON input');
+        }
+
+        console.log("Blog deleted successfully:", responseData);
         return {
             success: true,
             message: "Blog deleted successfully",
-            data: result,
+            data: responseData,
         };
     } catch (error: unknown) {
         if (error instanceof Error) {

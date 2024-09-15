@@ -1,7 +1,7 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { TrashIcon } from "@radix-ui/react-icons";
-import React from "react";
+import React, { useTransition } from "react";
 import {
     AlertDialog,
     AlertDialogCancel,
@@ -12,10 +12,57 @@ import {
     AlertDialogTitle,
     AlertDialogTrigger
 } from "@/components/ui/Alert-dialog";
-const DeleteAlert = ({ blogId }: { blogId: string }) => {
-    const onSubmit= () => {
+import { toast } from "@/hooks/use-toast";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import { deleteBlogById } from "@/lib/actions/blogApi";
+import { cn } from "@/lib/utils";
 
-    }
+interface DeleteAlertProps {
+    blogId: string;
+}
+
+const DeleteAlert: React.FC<DeleteAlertProps> = ({ blogId }) => {
+    const [isPending, startTransition] = useTransition();
+
+    const onSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+        startTransition(async () => {
+            try {
+                const result = await deleteBlogById(blogId);
+                const { success, message } = result;
+
+                if (success) {
+                    toast({
+                        title: "Blog deleted successfully",
+                        description: (
+                            <pre className="mt-2 w-full rounded-md bg-slate-950 p-4">
+                                <code className="text-white">{JSON.stringify(result, null, 2)}</code>
+                            </pre>
+                        )
+                    });
+                } else {
+                    toast({
+                        title: "Failed to delete the blog",
+                        description: (
+                            <pre className="mt-2 w-full rounded-md bg-slate-950 p-4">
+                                <code className="text-white">{message}</code>
+                            </pre>
+                        )
+                    });
+                }
+            } catch (error) {
+                toast({
+                    title: "An error occurred",
+                    description: (
+                        <pre className="mt-2 w-full rounded-md bg-slate-950 p-4">
+                            <code className="text-white">{(error as Error).message}</code>
+                        </pre>
+                    )
+                });
+            }
+        });
+    };
+
     return (
         <AlertDialog>
             <AlertDialogTrigger asChild>
@@ -34,12 +81,12 @@ const DeleteAlert = ({ blogId }: { blogId: string }) => {
                 <AlertDialogFooter>
                     <AlertDialogCancel>Cancel</AlertDialogCancel>
                     <form onSubmit={onSubmit}>
-                        <Button className="flex gap-2 items-center">
-                            {/* <AiOutlineLoading3Quarters
-                                className={cn(" animate-spin ", {
+                        <Button type="submit" className="flex gap-2 items-center">
+                            <AiOutlineLoading3Quarters
+                                className={cn("animate-spin", {
                                     hidden: !isPending
                                 })}
-                            />{" "} */}
+                            />
                             Continue
                         </Button>
                     </form>
