@@ -22,6 +22,7 @@ export default function Page() {
                     </pre>
                 )
             });
+            router.push("/dashboard");
         } else {
             toast({
                 title: "Failed to create the blog",
