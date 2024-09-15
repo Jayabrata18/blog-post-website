@@ -9,19 +9,13 @@ import React from "react";
 
 const EditForm = ({ blog }: { blog: IBlogDetial }) => {
     const router = useRouter();
-
-    // Handle form submission for editing the blog
     const handleEdit = async (data: BlogFormSchemaType) => {
         try {
-            // Send update request to the API
             const result = await updateBlogById(blog?._id!, data);
-             console.log("Blog ID:", blog?._id);
+            console.log("Blog ID:", blog?._id);
 
-            // Parse result if necessary
             const parsedResult = typeof result === "string" ? JSON.parse(result) : result;
             const { error } = parsedResult;
-
-            // Show success toast if there is no error
             if (!error?.message) {
                 toast({
                     title: "Blog edited successfully:",
@@ -31,11 +25,8 @@ const EditForm = ({ blog }: { blog: IBlogDetial }) => {
                         </pre>
                     )
                 });
-
-                // Optionally redirect back to the blog list or details page after editing
-                router.push("/dashboard"); // Adjust as necessary
+                router.push("/dashboard"); 
             } else {
-                // Handle error case and show error message
                 toast({
                     title: "Failed to edit the blog",
                     description: (
@@ -46,7 +37,6 @@ const EditForm = ({ blog }: { blog: IBlogDetial }) => {
                 });
             }
         } catch (err) {
-            // Handle unexpected errors
             toast({
                 title: "An unexpected error occurred",
                 description: (
