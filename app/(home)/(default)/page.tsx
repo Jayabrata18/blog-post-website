@@ -1,10 +1,8 @@
-import { Button } from "@/components/ui/button";
 import { getBlogs } from "@/lib/actions/blogApi";
 import { IBlog } from "@/lib/types";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import { json } from "stream/consumers";
 
 const page = async () => {
     const response = await getBlogs();

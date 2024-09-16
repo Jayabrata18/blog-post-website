@@ -17,6 +17,7 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
+    metadataBase: new URL(process.env.CLIENT_URL!),
     title: {
         template: "%s | Daily Blog by Joy",
         default: "Daily Blog by Joy"
