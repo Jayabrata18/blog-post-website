@@ -1,5 +1,6 @@
 import { getBlogs } from "@/lib/actions/blogApi";
 import { IBlog } from "@/lib/types";
+import { Heart } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -26,9 +27,21 @@ const page = async () => {
                                 sizes="(max-width: 768px) 100vw, (max-width:1200px): 50vw, 33vw"
                             />
                         </div>
-                        <div className="space-y-2">
-                            <p className="text-sm text-gray-400">{new Date(blog.createdAt).toDateString()}</p>
-                            <h1 className="text-xl font-bold">{blog.title}</h1>
+                        <div className="flex md:items-end flex-col md:flex-row mx-auto  justify-between">
+                            <div className="space-y-2">
+                                <p className="text-sm text-gray-400">
+                                    {new Date(blog.createdAt).toLocaleDateString("en-GB", {
+                                        day: "2-digit",
+                                        month: "short",
+                                        year: "numeric"
+                                    })}
+                                </p>
+                                <h1 className="text-xl font-bold">{blog.title}</h1>
+                            </div>
+                            <div>
+                                <Heart color="#22c55e" style={{ fill: "#22c55e" }} />
+                               
+                            </div>
                         </div>
                     </Link>
                 );
