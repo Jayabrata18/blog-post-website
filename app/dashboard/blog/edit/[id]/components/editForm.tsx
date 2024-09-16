@@ -20,17 +20,17 @@ const EditForm = ({ blog }: { blog: IBlogDetial }) => {
                 toast({
                     title: "Blog edited successfully:",
                     description: (
-                        <pre className="mt-2 w-full rounded-md bg-slate-950 p-4">
+                        <pre className="mt-2 w-full rounded-md bg-slate-700 p-4">
                             <code className="text-white">{JSON.stringify(data, null, 2)}</code>
                         </pre>
                     )
                 });
-                router.push("/dashboard"); 
+                router.push("/dashboard");
             } else {
                 toast({
                     title: "Failed to edit the blog",
                     description: (
-                        <pre className="mt-2 w-full rounded-md bg-slate-950 p-4">
+                        <pre className="mt-2 w-full rounded-md bg-slate-700 p-4">
                             <code className="text-white">{error.message}</code>
                         </pre>
                     )
@@ -40,11 +40,12 @@ const EditForm = ({ blog }: { blog: IBlogDetial }) => {
             toast({
                 title: "An unexpected error occurred",
                 description: (
-                    <pre className="mt-2 w-full rounded-md bg-slate-950 p-4">
+                    <pre className="mt-2 w-full rounded-md bg-slate-700 p-4">
                         <code className="text-white">{(err as Error).message}</code>
                     </pre>
                 )
             });
+            router.push("/dashboard");
         }
     };
 

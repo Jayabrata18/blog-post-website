@@ -35,7 +35,7 @@ const DeleteAlert: React.FC<DeleteAlertProps> = ({ blogId }) => {
                     toast({
                         title: "Blog deleted successfully",
                         description: (
-                            <pre className="mt-2 w-full rounded-md bg-slate-950 p-4">
+                            <pre className="mt-2 w-full rounded-md bg-slate-700 p-4">
                                 <code className="text-white">{JSON.stringify(result, null, 2)}</code>
                             </pre>
                         )
@@ -44,7 +44,7 @@ const DeleteAlert: React.FC<DeleteAlertProps> = ({ blogId }) => {
                     toast({
                         title: "Failed to delete the blog",
                         description: (
-                            <pre className="mt-2 w-full rounded-md bg-slate-950 p-4">
+                            <pre className="mt-2 w-full rounded-md bg-slate-700 p-4">
                                 <code className="text-white">{message}</code>
                             </pre>
                         )
@@ -54,7 +54,7 @@ const DeleteAlert: React.FC<DeleteAlertProps> = ({ blogId }) => {
                 toast({
                     title: "An error occurred",
                     description: (
-                        <pre className="mt-2 w-full rounded-md bg-slate-950 p-4">
+                        <pre className="mt-2 w-full rounded-md bg-slate-700 p-4">
                             <code className="text-white">{(error as Error).message}</code>
                         </pre>
                     )

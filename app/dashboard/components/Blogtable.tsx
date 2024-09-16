@@ -26,7 +26,8 @@ const Blogtable = async () => {
                             <h1 className="col-span-2">{blog.title}</h1>
                             {/* <SwitchForm checked={blog.is_published} name = "published" /> */}
                             <Switch checked={false} />
-                            <Switch checked={true} />
+                            <Switch checked={false} />
+                            
                             <Actions id={blog._id} />
                         </div>
                     );
