@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { Button } from "../ui/button";
 import { SiGithub } from "react-icons/si";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
@@ -7,9 +7,15 @@ import Link from "next/link";
 import { DashboardIcon, LockOpen2Icon } from "@radix-ui/react-icons";
 
 const LoginForm = () => {
+    const [isOpen, setIsOpen] = useState(false);
+
+    const handleOpen = () => setIsOpen(true);
+    const handleClose = () => setIsOpen(false);
+
     return (
-        <Popover>
-            <PopoverTrigger>
+        <Popover open={isOpen} onOpenChange={setIsOpen}>
+            {" "}
+            <PopoverTrigger onClick={handleOpen}>
                 {" "}
                 {/* <Button variant="outline" className="flex items-center gap-2">
                     <SiGithub />
@@ -22,7 +28,7 @@ const LoginForm = () => {
             </PopoverTrigger>
             <PopoverContent className="p-2 space-y-3 divide-y">
                 <Link href="/dashboard">
-                    <Button variant="ghost" className="w-full flex items-center justify-between">
+                    <Button variant="ghost" className="w-full flex items-center justify-between" onClick={handleClose}>
                         Dashboard
                         <DashboardIcon />
                     </Button>
