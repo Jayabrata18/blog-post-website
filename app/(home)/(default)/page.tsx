@@ -10,7 +10,7 @@ const page = async () => {
 
     return (
         <div className="w-full grid grid-cols-1 md:grid-cols-3 gap-5 p-5 xl:p-0">
-            {response?.data?.blogs?.map((blog: IBlog, index: number) => {
+            {response?.blogs?.map((blog: IBlog, index: number) => {
                 return (
                     <Link
                         href={"/blog/" + blog._id}
@@ -40,7 +40,6 @@ const page = async () => {
                             </div>
                             <div>
                                 <Heart color="#22c55e" style={{ fill: "#22c55e" }} />
-                               
                             </div>
                         </div>
                     </Link>

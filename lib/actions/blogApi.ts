@@ -1,7 +1,7 @@
 'use server'
 
 import { BlogFormSchemaType } from "@/app/dashboard/schema";
-import { IBlog } from "../types";
+// import { IBlog } from "../types";
 
 export async function createBlog(data: BlogFormSchemaType) {
     try {
@@ -31,14 +31,15 @@ export async function getBlogs() {
         if (!response.ok) {
             throw new Error(`Failed to fetch blogs: ${response.statusText}`);
         }
-        const blogs: IBlog[] = await response.json();
+        const blogs = await response.json();
         // // Sort blogs by `createdAt` in ascending order
         // const sortedBlogs = blogs.sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
         // console.log("Blogs fetched and sorted successfully:", sortedBlogs);
         return {
             success: true,
             // data: sortedBlogs,
-            data: blogs
+            // data: { blogs: blogs }
+            blogs,
         };
     } catch (error: unknown) {
         if (error instanceof Error) {
@@ -58,12 +59,13 @@ export async function deleteBlogById(blogId: string) {
         const data = await response.json();
         console.log("Blog deleted successfully:", data);
         return { success: true, message: "Blog deleted successfully", data };
-    } catch (error: any) {
-        console.error("Error deleting blog:", error.message || "Unknown error");
-        return { success: false, message: error.message || "Unknown error" };
+    } catch (error: unknown) {
+        if (error instanceof Error) {
+            console.error("Error deleting blog:", error.message || "Unknown error");
+            return { success: false, message: error.message || "Unknown error" };
+        }
     }
 }
-
 
 export async function updateBlogById(blogId: string, updatedData: BlogFormSchemaType) {
     try {
@@ -76,9 +78,11 @@ export async function updateBlogById(blogId: string, updatedData: BlogFormSchema
         const data = await response.json();
         console.log("Blog updated successfully:", data);
         return { success: true, message: "Blog updated successfully", data };
-    } catch (error: any) {
-        console.error("Error updating blog:", error.message || "Unknown error");
-        return { success: false, message: error.message || "Unknown error" };
+    } catch (error: unknown) {
+        if (error instanceof Error) {
+            console.error("Error updating blog:", error.message || "Unknown error");
+            return { success: false, message: error.message || "Unknown error" };
+        }
     }
 }
 export async function getBlogById(id: string) {
@@ -91,8 +95,11 @@ export async function getBlogById(id: string) {
         const data = await response.json();
         console.log("Blog fetched successfully:", data);
         return { success: true, data };
-    } catch (error: any) {
-        console.error("Error fetching blog:", error.message || "Unknown error");
-        return { success: false, message: error.message || "Unknown error" };
+    } catch (error: unknown) {
+        if (error instanceof Error) {
+
+            console.error("Error fetching blog:", error.message || "Unknown error");
+            return { success: false, message: error.message || "Unknown error" };
+        }
     }
 }

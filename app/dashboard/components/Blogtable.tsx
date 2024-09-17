@@ -20,7 +20,7 @@ const Blogtable = async () => {
                     <h1>Premium</h1>
                     <h1>Publish</h1>
                 </div>
-                {response?.data?.blogs?.map((blog: IBlog, id: number) => {
+                {response?.blogs?.map((blog: IBlog, id: number) => {
                     return (
                         <div className="grid grid-cols-5 p-5" key={id}>
                             <h1 className="col-span-2">{blog.title}</h1>
