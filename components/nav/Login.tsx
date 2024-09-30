@@ -5,7 +5,7 @@ import { Button } from "../ui/button";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import Link from "next/link";
 import { DashboardIcon, LockOpen2Icon } from "@radix-ui/react-icons";
-import { SignInButton } from "@clerk/nextjs";
+// import { SignInButton } from "@clerk/nextjs";
 
 const LoginForm = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -20,11 +20,11 @@ const LoginForm = () => {
                     <SiGithub />
                     Login
                 </Button> */}
-                <div className="flex items-center gap-2 border border-b-slate-900 rounded px-4 py-2 hover:bg-zinc-800 cursor-pointer">
-                    {/* <SiGithub />
+                {/* <div className="flex items-center gap-2 border border-b-slate-900 rounded px-4 py-2 hover:bg-zinc-800 cursor-pointer"> */}
+                {/* <SiGithub />
                     Login */}
-                    <SignInButton />
-                </div>
+                {/* <SignInButton /> */}
+                {/* </div> */}
             </PopoverTrigger>
             <PopoverContent className="p-2 space-y-3 divide-y">
                 <Link href="/dashboard">
