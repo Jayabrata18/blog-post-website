@@ -7,7 +7,7 @@ import { UserSchemaType } from "@/app/dashboard/user/schema";
 
 export async function createBlog(data: BlogFormSchemaType) {
     try {
-        const response = await fetch("http://localhost:5555/api/v1/create-blog", {
+        const response = await fetch(`${process.env.SERVER_URL}/create-blog`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(data)
@@ -24,7 +24,7 @@ export async function createBlog(data: BlogFormSchemaType) {
 
 export async function getBlogs() {
     try {
-        const response = await fetch("http://localhost:5555/api/v1/get-blogs", {
+        const response = await fetch(`${process.env.SERVER_URL}/get-blogs`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json"
@@ -53,7 +53,7 @@ export async function getBlogs() {
 }
 export async function deleteBlogById(blogId: string) {
     try {
-        const response = await fetch(`http://localhost:5555/api/v1/delete-blog/${blogId}`, {
+        const response = await fetch(`${process.env.SERVER_URL}/${blogId}`, {
             method: "DELETE",
             headers: { "Content-Type": "application/json" }
         });
@@ -71,7 +71,7 @@ export async function deleteBlogById(blogId: string) {
 
 export async function updateBlogById(blogId: string, updatedData: BlogFormSchemaType) {
     try {
-        const response = await fetch(`http://localhost:5555/api/v1/update-blog/${blogId}`, {
+        const response = await fetch(`${process.env.SERVER_URL}/${blogId}`, {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(updatedData)
@@ -89,7 +89,7 @@ export async function updateBlogById(blogId: string, updatedData: BlogFormSchema
 }
 export async function getBlogById(id: string) {
     try {
-        const response = await fetch(`http://localhost:5555/api/v1/get-blog/${id}`, {
+        const response = await fetch(`${process.env.SERVER_URL}/${id}`, {
             method: "GET",
             headers: { "Content-Type": "application/json" }
         });
@@ -106,9 +106,9 @@ export async function getBlogById(id: string) {
     }
 
 }
-export async function createUser(user: UserSchemaType){
+export async function createUser(user: UserSchemaType) {
     try {
-        const response = await fetch("http://localhost:5555/api/v1/create-user", {
+        const response = await fetch(`${process.env.SERVER_URL}/create-user`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(user)
