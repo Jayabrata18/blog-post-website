@@ -1,6 +1,7 @@
 import Link from "next/link";
 import React from "react";
-import LoginForm from "./Login";
+import Login2 from "./Login2";
+// import LoginForm from "./Login"; 
 
 const Navbar = () => {
     return (
@@ -11,7 +12,8 @@ const Navbar = () => {
                 </Link>
                 <div className="h-1 w-0 group-hover:w-full transition-all bg-green-500"></div>
             </div>
-            <LoginForm />
+            {/* <LoginForm /> */}
+            <Login2/>
         </nav>
     );
 };

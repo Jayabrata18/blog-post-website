@@ -1,6 +1,8 @@
 'use server'
 
 import { BlogFormSchemaType } from "@/app/dashboard/schema";
+import { UserSchemaType } from "@/app/dashboard/user/schema";
+
 // import { IBlog } from "../types";
 
 export async function createBlog(data: BlogFormSchemaType) {
@@ -102,4 +104,22 @@ export async function getBlogById(id: string) {
             return { success: false, message: error.message || "Unknown error" };
         }
     }
+
+}
+export async function createUser(user: UserSchemaType){
+    try {
+        const response = await fetch("http://localhost:5555/api/v1/create-user", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(user)
+        });
+        if (!response.ok) throw new Error(`Error: ${response.statusText}`);
+        const result = await response.json();
+        console.log("User created:", result);
+        return { success: true, message: "User created successfully", data: result };
+    } catch (error) {
+        console.error("Failed to create user:", error);
+        return { success: false, message: (error as Error).message };
+    }
+
 }

@@ -2,6 +2,8 @@ import { getBlogById } from "@/lib/actions/blogApi";
 import Image from "next/image";
 import React from "react";
 import MarkdownPreview from "@/components/markdown/MarkdownPreview";
+import { auth } from "@clerk/nextjs/server";
+import { redirect } from "next/navigation";
 
 export async function generateMetadata({ params }: { params: { id: string } }) {
     const { data: blog } = await getBlogById(params.id);
@@ -75,6 +77,13 @@ export async function generateMetadata({ params }: { params: { id: string } }) {
 }
 
 const page = async ({ params }: { params: { id: string } }) => {
+    const { userId } = auth();
+    const isAuth = !!userId;
+    // const user =  await currentUser();
+
+    if (!isAuth) {
+        redirect("/");
+    }
     const { data: blog } = await getBlogById(params.id);
     if (!blog?._id) {
         return <h1 className="text-white">Not found</h1>;

@@ -3,8 +3,18 @@ import { PlusIcon } from "lucide-react";
 import Link from "next/link";
 import React from "react";
 import Blogtable from "./components/Blogtable";
+import { auth } from "@clerk/nextjs/server";
+import { redirect } from "next/navigation";
 
-const Dashboard = () => {
+const Dashboard = async () => {
+    const { userId } = auth();
+    const isAuth = !!userId;
+    // const user =  await currentUser();
+
+    if (!isAuth) {
+        redirect("/");
+    }
+
     return (
         <div className="space-y-5">
             <div className="flex items-center justify-between">
