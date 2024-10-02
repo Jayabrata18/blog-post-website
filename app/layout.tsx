@@ -4,8 +4,9 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/ui/theme-provider";
 import Navbar from "@/components/nav/Navbar";
 import { Toaster } from "@/components/ui/toaster";
-import {dark} from "@clerk/themes";
+import { dark } from "@clerk/themes";
 import { ClerkLoaded, ClerkLoading, ClerkProvider } from "@clerk/nextjs";
+import Loading from "./loading";
 const geistSans = localFont({
     src: "./fonts/GeistVF.woff",
     variable: "--font-geist-sans",
@@ -99,11 +100,13 @@ export default function RootLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <ClerkProvider appearance={{baseTheme: dark}}>
+        <ClerkProvider appearance={{ baseTheme: dark }}>
             <html lang="en" suppressHydrationWarning>
                 <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
                     <ClerkLoading>
-                        <div className="flex items-center justify-center h-screen text-2xl">Loading...</div>
+                        <div className="flex items-center justify-center h-screen text-2xl">
+                            <Loading />
+                        </div>
                     </ClerkLoading>
                     <ClerkLoaded>
                         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
